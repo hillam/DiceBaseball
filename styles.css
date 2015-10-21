@@ -1,0 +1,22 @@
+#main{
+	width: 700px; /* width of the image */
+}
+
+#field{
+	background-image: url("images/field.png");
+	background-repeat: no-repeat;
+	background-position: center center;
+	height: 450px;
+}
+
+.r{
+	background-color: #FCC;
+}
+
+.current-inning{
+	color: red;
+}
+
+thead {
+	background-color: #CCC;
+}

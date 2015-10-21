@@ -6,19 +6,68 @@
 		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
 		<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 		<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+		<!-- Import local resources -->
+		<link rel="stylesheet" href="styles.css"/>
+		<script src="main.js"></script>
 	</head>
 
-
-	<style>
-		/* Local Styles Go Here */
-	</style>
-
 	<body>
-		<!-- HTML Goes Here... -->
+		<div data-role="header" data-position="fixed">
+			<h1>Dice Baseball</h1>
+		</div>
 
-		<script>
-			// Local JavaScript Goes Here...
-		</script>
+		<div data-role="main" id="main" class="ui-content center">
+			<table data-role="table" id="score" class="ui-responsive ui-shadow" border="1">
+				<thead>
+					<tr>
+						<th> </th>
+						<th>1</th>
+						<th>2</th>
+						<th>3</th>
+						<th>4</th>
+						<th>5</th>
+						<th>6</th>
+						<th>7</th>
+						<th>8</th>
+						<th>9</th>
+						<th>R</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Red</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td class="r">0</td>
+					</tr>
+					<tr>
+						<td>Blue</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td class="r">0</td>
+					</tr>
+				</tbody>
+			</table>
+			<div id="field"></div>
+		</div>
 
+		<div data-role="footer">
+			<a href="#" class="ui-btn ui-btn-icon-left">Pitch</a>
+		</div>
 	</body>
 </html>
