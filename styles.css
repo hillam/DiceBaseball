@@ -1,22 +1,86 @@
 #main{
 	width: 700px; /* width of the image */
+
+	/*center*/
+	float: none;
+    margin: 0 auto;
 }
 
 #field{
 	background-image: url("images/field.png");
-	background-repeat: no-repeat;
-	background-position: center center;
 	height: 450px;
+	position:relative;
 }
 
-.r{
+#controls{
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+#hype{
+	color: blue;
+	font-weight: bold;
+}
+
+#dice-container{
+	float: right;
+}
+
+[id^=die]{
+	display: inline-table;
+	font-size: 1.6em;
+	margin-top: 8px;
+	width: 42px;
+	height: 42px;
+	background-color: white;
+	border: 1px solid black;
+	vertical-align: middle;
+	text-align: center;
+}
+
+#die1{ color: red; }
+#die2{ color: blue; }
+
+.batter, .first, .second, .third{
+	position: absolute;
+	display: block-inline;
+	float: left;
+	border: solid black 1px;
+	background-color: white;
+	border-radius: 20px;
+	padding: 5px;
+	width: 75px;
+	text-align: center;
+}
+
+.batter{
+	top: 350px;
+	left:305px;
+}
+
+.first{
+	top: 225px;
+	left:450px;
+}
+
+.second{
+	top: 125px;
+	left:305px;
+}
+
+.third{
+	top: 225px;
+	left:150px;
+}
+
+.bg-gray{
+	background-color: #CCC;
+}
+
+.bg-red{
 	background-color: #FCC;
 }
 
 .current-inning{
 	color: red;
-}
-
-thead {
-	background-color: #CCC;
 }
