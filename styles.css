@@ -1,9 +1,14 @@
 #main{
-	width: 700px; /* width of the image */
+	/* width of the image */
+	width: 700px;
 
 	/*center*/
 	float: none;
     margin: 0 auto;
+}
+
+table, td, th {
+    border: 1px solid black;
 }
 
 #field{
@@ -26,22 +31,20 @@
 	float: right;
 }
 
-[id^=die]{
+.dice{
 	display: inline-table;
-	font-size: 1.6em;
+	font-size: 1.2em;
 	margin-top: 8px;
+	padding: 8px 0px 0px 0px;
 	width: 42px;
-	height: 42px;
+	height: 35px;
 	background-color: white;
 	border: 1px solid black;
 	vertical-align: middle;
 	text-align: center;
 }
 
-#die1{ color: red; }
-#die2{ color: blue; }
-
-.batter, .first, .second, .third{
+#batter, #first, #second, #third, #outs{
 	position: absolute;
 	display: block-inline;
 	float: left;
@@ -53,24 +56,29 @@
 	text-align: center;
 }
 
-.batter{
+#batter{
 	top: 350px;
 	left:305px;
 }
 
-.first{
+#first{
 	top: 225px;
 	left:450px;
 }
 
-.second{
+#second{
 	top: 125px;
 	left:305px;
 }
 
-.third{
+#third{
 	top: 225px;
 	left:150px;
+}
+
+#outs{
+	top: 400px;
+	left: 550px;
 }
 
 .bg-gray{
@@ -81,6 +89,10 @@
 	background-color: #FCC;
 }
 
-.current-inning{
+.red{
 	color: red;
+}
+
+.blue{
+	color: blue;
 }

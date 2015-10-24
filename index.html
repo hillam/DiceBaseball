@@ -36,7 +36,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
+					<tr id="red-score">
 						<td>Red</td>
 						<td>0</td>
 						<td>0</td>
@@ -47,9 +47,9 @@
 						<td>0</td>
 						<td>0</td>
 						<td>0</td>
-						<td class="bg-red">0</td>
+						<td id="red-total" class="bg-red">0</td>
 					</tr>
-					<tr>
+					<tr id="blue-score">
 						<td>Blue</td>
 						<td>0</td>
 						<td>0</td>
@@ -60,26 +60,27 @@
 						<td>0</td>
 						<td>0</td>
 						<td>0</td>
-						<td class="bg-red">0</td>
+						<td id="blue-total" class="bg-red">0</td>
 					</tr>
 				</tbody>
 			</table>
 
 			<div id="field">
-				<!-- <div class="batter">Batter</div>
-				<div class="first">First</div>
-				<div class="second">Second</div>
-				<div class="third">Third</div> -->
+				<div id="batter">Batter</div>
+				<div id="first">First</div>
+				<div id="second">Second</div>
+				<div id="third">Third</div>
+				<div id="outs">0 outs</div>
 			</div>
 
 			<div id="controls" class="bg-gray">
-				<a href='#' class='ui-btn ui-btn-inline'>
+				<a href='#' id="pitch" class='ui-btn ui-btn-inline'>
 					Pitch
 				</a>
 				<span id="hype">Play Ball!</span>
 				<div id="dice-container">
-					<span id="die1">?</span>
-					<span id="die2">?</span>
+					<span class="dice red">?</span>
+					<span class="dice blue">?</span>
 				</div>
 			</div>
 		</div>
