@@ -84,12 +84,22 @@ function pitch(){
 	// animate the dice, and then do game logic
 	roll_dice(die1, die2, do_pitch);
 
-	function do_pitch(){
-
+	function do_pitch(die1, die2){
+		/*	TODO:
+			- based on dice values:
+				- update #hype
+				- do the correct action..
+		*/
 	}
 }
 
 function roll_dice(die1, die2, callback){
+	/*	TODO:
+		- disable pitch button
+		- cycle through dice values until landing on die1 and die2
+		- re-enable pitch button
+		- callback
+	*/
 
-	callback();
+	callback(die1, die2);
 }
