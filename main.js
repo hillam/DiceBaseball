@@ -7,19 +7,19 @@ var model = {
 		color: 'blue',
 		score: [0,0,0,0,0,0,0,0,0]
 	},
-	inning: 8,
+	inning: 0,
 	at_bat: null, // this gets initialized in document ready
 	outs: 0,
 	bases: {
-		'first': true,
-		'second': true,
-		'third': true
+		'first': false,
+		'second': false,
+		'third': false
 	}
 }
 
 $(document).ready(function(){
 	$('#pitch').click(pitch);
-	model.at_bat = model.red_team;
+	model.at_bat = model.blue_team;
 	update();
 });
 
@@ -51,7 +51,7 @@ function update(){
 	var blue_total = 0;
 	var red_tds = $('#red-score td');
 	var blue_tds = $('#blue-score td');
-	for(var i = 0; i <= model.inning; i++){
+	for(var i = 1; i <= model.inning; i++){
 		red_tds.eq(i).text(model.red_team.score[i]);
 		red_total += model.red_team.score[i];
 		blue_tds.eq(i).text(model.blue_team.score[i]);
@@ -78,11 +78,8 @@ function set_color(element){
 }
 
 function pitch(){
-	var die1 = Math.floor(Math.random() * 6) + 1;
-	var die2 = Math.floor(Math.random() * 6) + 1;
-
 	// animate the dice, and then do game logic
-	roll_dice(die1, die2, do_pitch);
+	roll_dice(do_pitch);
 
 	function do_pitch(die1, die2){
 		/*	TODO:
@@ -90,16 +87,35 @@ function pitch(){
 				- update #hype
 				- do the correct action..
 		*/
+		// GET ON BASE
+		if(die1 < 3){
+			alert("on base");
+		}
+		// YOU'RE OUT
+		else{
+			alert("you're out");
+		}
 	}
 }
 
-function roll_dice(die1, die2, callback){
-	/*	TODO:
-		- disable pitch button
-		- cycle through dice values until landing on die1 and die2
-		- re-enable pitch button
-		- callback
-	*/
+function roll_dice(callback){
+	$('#pitch').addClass('ui-disabled');
 
-	callback(die1, die2);
+	var counter = 0,
+		die1 = 0,
+		die2 = 0;
+	var animation = setInterval(function(){
+		die1 = Math.floor(Math.random() * 6) + 1;
+		die2 = Math.floor(Math.random() * 6) + 1;
+		$('#die1').text(die1);
+		$('#die2').text(die2);
+
+		counter++;
+		if (counter >= 10)
+		{
+		    clearInterval(animation);
+			$('#pitch').removeClass('ui-disabled');
+			callback(die1, die2);
+		}
+	}, 100);
 }
