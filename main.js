@@ -19,16 +19,16 @@ var model = {
 
 $(document).ready(function(){
 	$('#pitch').click(pitch);
-	model.at_bat = model.blue_team;
+	model.at_bat = model.red_team;
 	update();
 });
 
 function update(){
-	// Show outs
+	// Show outs in team color
 	set_color($('#outs'));
 	$('#outs').text(model.outs + ' outs');
 
-	// Show batter
+	// Show batter in team color
 	set_color($('#batter'));
 
 	/*--------------------------------------------------------------------------
@@ -51,10 +51,10 @@ function update(){
 	var blue_total = 0;
 	var red_tds = $('#red-score td');
 	var blue_tds = $('#blue-score td');
-	for(var i = 1; i <= model.inning; i++){
-		red_tds.eq(i).text(model.red_team.score[i]);
+	for(var i = 0; i <= model.inning; i++){
+		red_tds.eq(i+1).text(model.red_team.score[i]);
 		red_total += model.red_team.score[i];
-		blue_tds.eq(i).text(model.blue_team.score[i]);
+		blue_tds.eq(i+1).text(model.blue_team.score[i]);
 		blue_total += model.blue_team.score[i];
 	}
 	$('#red-total').text(red_total);
@@ -66,6 +66,9 @@ function update(){
 	var score_tds = model.at_bat == model.red_team ? red_tds : blue_tds;
 	var score_td = score_tds.eq(model.inning + 1);
 	score_td.text(model.at_bat.score[model.inning]);
+	$('td').each(function(){
+		$(this).removeClass('red blue');
+	});
 	set_color(score_td);
 }
 
@@ -73,31 +76,74 @@ function update(){
 	Set the color of an element based on the team currently at bat
 ------------------------------------------------------------------------------*/
 function set_color(element){
-	element.removeClass(['red', 'blue']);
+	element.removeClass('red blue');
 	element.addClass(model.at_bat.color);
 }
 
+/*------------------------------------------------------------------------------
+	Do the dice animation and then perform the game logic,
+	then call update()
+------------------------------------------------------------------------------*/
 function pitch(){
 	// animate the dice, and then do game logic
 	roll_dice(do_pitch);
 
+	/*--------------------------------------------------------------------------
+		Do game logic.
+		Invoked by roll_dice after animation is finished.
+	--------------------------------------------------------------------------*/
 	function do_pitch(die1, die2){
-		/*	TODO:
-			- based on dice values:
-				- update #hype
-				- do the correct action..
-		*/
+		var outcomes = {
+			reach_base: ['Walk', 'Single', 'Single', 'Double', 'Triple', 'Home Run!'],
+			out: ['Strikeout', 'Groundout', 'Groundout', 'Groundout', 'Flyout', 'Flyout']
+		}
+
 		// GET ON BASE
 		if(die1 < 3){
-			alert("on base");
+			// display result
+			$('#hype').text(outcomes.reach_base[die2-1]);
+			// put a runner on base (and shift others)
+			advance(true);
+			if(die2 / 4 >= 1){
+				// 4 will advance once,
+				// 5 will advance 2 times,
+				// 6 will advance 3 times
+				advance(false, (die2 % 4) + 1);
+			}
 		}
 		// YOU'RE OUT
 		else{
-			alert("you're out");
+			// display result
+			$('#hype').text(outcomes.out[die2-1]);
+			model.outs++;
+			if(die2 >= 2 && die2 <= 4){
+				advance(false);
+			}
 		}
+
+		// Next ups
+		if(model.outs > 2){
+			model.outs = 0;
+			if(model.at_bat == model.red_team){
+				model.at_bat = model.blue_team;
+			}
+			else{
+				model.at_bat = model.red_team;
+				model.inning++;
+			}
+			model.bases.first = false;
+			model.bases.second = false;
+			model.bases.third = false;
+		}
+
+		update();
 	}
 }
 
+
+/*------------------------------------------------------------------------------
+	Animate dice
+------------------------------------------------------------------------------*/
 function roll_dice(callback){
 	$('#pitch').addClass('ui-disabled');
 
@@ -118,4 +164,22 @@ function roll_dice(callback){
 			callback(die1, die2);
 		}
 	}, 100);
+}
+
+/*------------------------------------------------------------------------------
+	IF take_base is true, put a runner on first and shift other runners,
+	ELSE just shift all runners
+------------------------------------------------------------------------------*/
+function advance(take_base, n){
+	if(typeof n === "undefined"){
+		n = 1;
+	}
+	for(var i = 0; i < n; i++){
+		if(model.bases.third){
+			model.at_bat.score[model.inning]++;
+		}
+		model.bases.third = model.bases.second;
+		model.bases.second = model.bases.first;
+		model.bases.first = take_base;
+	}
 }
