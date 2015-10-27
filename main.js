@@ -56,8 +56,8 @@ function update(){
 		red_tds.eq(i+1).text(model.red_team.score[i]);
 		blue_tds.eq(i+1).text(model.blue_team.score[i]);
 	}
-	$('#red-total').text(sum(model.red_team.scores));
-	$('#blue-total').text(sum(model.blue_team.scores));
+	$('#red-total').text(sum(model.red_team.score));
+	$('#blue-total').text(sum(model.blue_team.score));
 
 	/*--------------------------------------------------------------------------
 			Color current inning
@@ -84,13 +84,10 @@ function set_color(element){
 	then call update()
 ------------------------------------------------------------------------------*/
 function pitch(){
-	// animate the dice, and then do game logic
+	// Animate the dice, and then invoke do_pitch
 	roll_dice(do_pitch);
 
-	/*--------------------------------------------------------------------------
-		Do game logic.
-		Invoked by roll_dice after animation is finished.
-	--------------------------------------------------------------------------*/
+	// Perform the game logic
 	function do_pitch(die1, die2){
 		var outcomes = {
 			reach_base: ['Walk', 'Single', 'Single', 'Double', 'Triple', 'Home Run!'],
@@ -123,7 +120,6 @@ function pitch(){
 
 		// Next ups
 		if(model.outs > 2){
-			model.outs = 0;
 			if(model.at_bat == model.red_team){
 				model.at_bat = model.blue_team;
 			}
@@ -134,12 +130,25 @@ function pitch(){
 			model.bases.first = false;
 			model.bases.second = false;
 			model.bases.third = false;
+
+			if(model.inning < 9){
+				model.outs = 0;
+			}
 		}
 
 		update();
+
+		/*----------------------------------------------------------------------
+			Check if the game is over
+		----------------------------------------------------------------------*/
+		if(model.inning == 9 || (model.inning == 8 	&&
+				model.at_bat == model.blue_team 	&&
+				sum(model.red_team.score) < sum(model.blue_team.score))){
+			alert('Game Over');
+			$('#pitch').addClass('ui-disabled');
+		}
 	}
 }
-
 
 /*------------------------------------------------------------------------------
 	Animate dice
@@ -187,8 +196,8 @@ function advance(take_base, n){
 // return the sum of an array of numbers
 function sum(arr){
 	var total = 0;
-	for(var x in arr){
-		total += x;
+	for(var i = 0; i < arr.length; i++){
+		total += arr[i];
 	}
 	return total;
 }
