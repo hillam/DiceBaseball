@@ -15,7 +15,7 @@
 	<body>
 		<div data-role="header" data-position="fixed">
 			<h1>Dice Baseball</h1>
-			<a href="#" class="ui-btn ui-btn-right ui-icon-info ui-btn-icon-left">Rules</a>
+			<a href="#rules-popup" data-rel="popup" class="ui-btn ui-btn-right ui-icon-info ui-btn-icon-left">Rules</a>
 		</div>
 
 		<div data-role="main" id="main" class="ui-content center">
@@ -82,6 +82,86 @@
 					<span id="die1" class="dice red">?</span>
 					<span id="die2" class="dice blue">?</span>
 				</div>
+			</div>
+
+			<div data-role="popup" id="rules-popup">
+				<a href="#" data-rel="back" data-role="button" data-icon="delete"
+					data-iconpos="notext" class="ui-btn-right">Close</a>
+				<h1>Dice Baseball Rules</h1>
+				<p>Roll #1:</p>
+				<table data-role="table" class="ui-responsive ui-shadow" border="1">
+					<thead class="bg-gray">
+						<tr>
+							<th>Roll</th>
+							<th>Outcome</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>1-2</td>
+							<td>Batter reaches base</td>
+						</tr>
+						<tr>
+							<td>3-6</td>
+							<td>Batter is out</td>
+						</tr>
+					</tbody>
+				</table>
+				<p>Roll #2:</p>
+				<p>If the batter reached base, use the table below to determine the outcome:</p>
+				<table data-role="table" class="ui-responsive ui-shadow" border="1">
+					<thead class="bg-gray">
+						<tr>
+							<th>Roll</th>
+							<th>Outcome</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>1</td>
+							<td>Walk - all forced runners advance one base</td>
+						</tr>
+						<tr>
+							<td>2-3</td>
+							<td>Single - all runners advance one base</td>
+						</tr>
+						<tr>
+							<td>4</td>
+							<td>Double - all runners advance two bases</td>
+						</tr>
+						<tr>
+							<td>5</td>
+							<td>Triple - all runners advance three bases</td>
+						</tr>
+						<tr>
+							<td>6</td>
+							<td>Home Run - the batter and all runners score</td>
+						</tr>
+					</tbody>
+				</table>
+				<p>If the batter is out, use the table below to determine the outcome:</p>
+				<table data-role="table" class="ui-responsive ui-shadow" border="1">
+					<thead class="bg-gray">
+						<tr>
+							<th>Roll</th>
+							<th>Outcome</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>1</td>
+							<td>Strikeout</td>
+						</tr>
+						<tr>
+							<td>2-4</td>
+							<td>Groundout, all runners advance if less than two outs</td>
+						</tr>
+						<tr>
+							<td>5-6</td>
+							<td>Flyout</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</body>

@@ -23,6 +23,9 @@ $(document).ready(function(){
 	update();
 });
 
+/*------------------------------------------------------------------------------
+	Update the view
+------------------------------------------------------------------------------*/
 function update(){
 	// Show outs in team color
 	set_color($('#outs'));
@@ -47,18 +50,14 @@ function update(){
 	/*--------------------------------------------------------------------------
 			Show scores and display total runs
 	--------------------------------------------------------------------------*/
-	var red_total = 0;
-	var blue_total = 0;
 	var red_tds = $('#red-score td');
 	var blue_tds = $('#blue-score td');
 	for(var i = 0; i <= model.inning; i++){
 		red_tds.eq(i+1).text(model.red_team.score[i]);
-		red_total += model.red_team.score[i];
 		blue_tds.eq(i+1).text(model.blue_team.score[i]);
-		blue_total += model.blue_team.score[i];
 	}
-	$('#red-total').text(red_total);
-	$('#blue-total').text(blue_total);
+	$('#red-total').text(sum(model.red_team.scores));
+	$('#blue-total').text(sum(model.blue_team.scores));
 
 	/*--------------------------------------------------------------------------
 			Color current inning
@@ -116,7 +115,8 @@ function pitch(){
 			// display result
 			$('#hype').text(outcomes.out[die2-1]);
 			model.outs++;
-			if(die2 >= 2 && die2 <= 4){
+			if(die2 >= 2 && die2 <= 4 && model.outs < 2){
+				// groundout -> runners advance
 				advance(false);
 			}
 		}
@@ -182,4 +182,13 @@ function advance(take_base, n){
 		model.bases.second = model.bases.first;
 		model.bases.first = take_base;
 	}
+}
+
+// return the sum of an array of numbers
+function sum(arr){
+	var total = 0;
+	for(var x in arr){
+		total += x;
+	}
+	return total;
 }
